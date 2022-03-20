@@ -33,8 +33,9 @@ struct ContentView: View {
                 }){
                     HStack {
                         Image(systemName: "plus.circle")
-                        Text("Vote")
+                         Text("Vote")
                     }
+                    .font(.largeTitle)
                 }
             }
         }
