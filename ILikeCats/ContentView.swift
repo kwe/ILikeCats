@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var numberOfLikes = 0
+    
+    @ObservedObject private var counterVM: CounterViewModel
+    
+    init() {
+        counterVM = CounterViewModel()
+    }
     
     var body: some View {
         
@@ -18,18 +23,18 @@ struct ContentView: View {
                     .bold()
                     .foregroundColor(.red)
                     .font(.title)
-                Text("Number of likes \(numberOfLikes)")
+                Text("Number of likes \(counterVM.value)")
                 AsyncImage(url: URL(string:"https://placeimg.com/400/600/animals")) { image in
                     image.resizable()
                 } placeholder: {
                     Color.red;
                 }
-                .frame(width: 400, height: 600)
-                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .frame(maxWidth: .infinity, maxHeight: 400)
+                .aspectRatio(contentMode: .fit)
                 
                 Button(action: {
                     print("Like")
-                    numberOfLikes = numberOfLikes + 1
+                    counterVM.increment()
                 }){
                     HStack {
                         Image(systemName: "plus.circle")
